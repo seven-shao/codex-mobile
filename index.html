@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CODEX 手机版下载</title>
+<style>
+:root{--bg:#0b0f12;--card:#141a1f;--grn:#22c55e;--txt:#e6edf3;--sub:#8b949e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:15px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.card{background:var(--card);border:1px solid #222b33;border-radius:16px;padding:28px 22px;max-width:420px;width:100%;text-align:center}
+.logo{width:56px;height:56px;border-radius:14px;background:var(--grn);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 14px}
+h1{font-size:19px;margin-bottom:6px}
+.sub{color:var(--sub);font-size:13px;margin-bottom:20px}
+.btn{display:block;width:100%;padding:15px;background:var(--grn);color:#04160b;font-weight:700;font-size:16px;border:0;border-radius:12px;text-decoration:none;margin-bottom:10px}
+.warn{background:#2a1f12;border:1px solid #4a3a1a;color:#e8b339;border-radius:10px;padding:12px;font-size:13px;text-align:left;margin-bottom:14px;display:none}
+.warn.show{display:block}
+.tip{color:var(--sub);font-size:12px;margin-top:14px;line-height:1.7;text-align:left}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">◈</div>
+  <h1>CODEX 手机版</h1>
+  <div class="sub">安卓安装包 · 一键下载安装</div>
+  <div class="warn" id="warn">请点右上角 <b>⋯</b> → <b>在浏览器打开</b>，微信内无法直接安装 App。</div>
+  <a class="btn" id="dl" href="Codex-Mobile-Android-1.0.0.apk" download>下载安卓安装包</a>
+  <div class="tip">安装时若提示「未知来源」，在系统设置里允许一次即可。<br>苹果版：用 Safari 打开网页版后点「分享 → 添加到主屏幕」。</div>
+</div>
+<script>
+if (/MicroMessenger/i.test(navigator.userAgent)) { document.getElementById('warn').classList.add('show'); }
+</script>
+</body>
+</html>
