@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B0F14">
+<title>CODEX 手机版 · 华为鸿蒙</title>
+<style>
+:root{--bg:#0B0F14;--card:#141A22;--line:#242C38;--txt:#E8EDF4;--sub:#8A97A8;--green:#2BD576;--blue:#3D8BFD;--warn:#F5A524}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.6 -apple-system,BlinkMacSystemFont,"HarmonyOS Sans SC","PingFang SC","Microsoft YaHei",sans-serif;padding:0 0 32px}
+.top{padding:22px 18px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+.logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,#2BD576,#12A05A);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;color:#04140C}
+.top h1{font-size:16px;margin:0;font-weight:600}
+.top p{margin:2px 0 0;font-size:12px;color:var(--sub)}
+.wrap{padding:16px 18px 0;max-width:560px;margin:0 auto}
+.state{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:14px;font-size:13.5px}
+.state b{color:var(--green)}
+.state .tag{display:inline-block;font-size:11.5px;padding:2px 9px;border-radius:20px;border:1px solid var(--line);color:var(--sub);margin-left:6px;vertical-align:1px}
+.btn{display:block;width:100%;text-align:center;text-decoration:none;border:0;border-radius:12px;padding:15px 16px;font-size:16px;font-weight:600;margin-bottom:11px}
+.btn.g{background:var(--green);color:#04140C}
+.btn.b{background:transparent;color:var(--blue);border:1px solid var(--blue)}
+.btn small{display:block;font-size:11.5px;font-weight:400;opacity:.85;margin-top:3px}
+.tip{background:rgba(245,165,36,.08);border:1px solid rgba(245,165,36,.35);border-radius:10px;padding:11px 13px;font-size:12.5px;color:#F0D9AE;margin-bottom:14px}
+h2{font-size:13px;color:var(--sub);font-weight:600;margin:20px 0 8px}
+ol{margin:0;padding-left:19px;font-size:13.5px;color:#C3CDDA}
+ol li{margin-bottom:7px}
+ol b{color:var(--txt)}
+.foot{text-align:center;color:#5A6675;font-size:11.5px;margin-top:22px}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--sub);word-break:break-all}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="logo">C</div>
+  <div>
+    <h1>CODEX 手机版 · 华为鸿蒙</h1>
+    <p>发任务 · 看进度 · 我的</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="state" id="state">正在识别你的设备…</div>
+
+  <div id="warnbox" class="tip" style="display:none">你像是在微信/QQ 里打开的，安装包会被拦。请点右上角「⋯」→ <b>在浏览器打开</b>，再下载。</div>
+
+  <a class="btn g" id="btnApk" href="https://seven-shao.github.io/codex-mobile/Codex-Mobile-Android-1.0.0.apk">
+    下载安装包（.apk）
+    <small>鸿蒙 4 及以下可直接安装</small>
+  </a>
+
+  <a class="btn b" id="btnWeb" href="https://124.221.2.81/mobile-relay/m/">
+    直接用网页版
+    <small>不用装任何东西，打开就能用</small>
+  </a>
+
+  <h2>安装步骤</h2>
+  <ol>
+    <li>点上面绿色按钮，把安装包下载到手机。</li>
+    <li>打开「文件管理」→ 下载内容，点这个 apk 文件。</li>
+    <li>系统提示 <b>「禁止安装未知来源应用」</b> 时，点「设置」→ 打开 <b>允许安装此来源</b>，返回再装一次。</li>
+    <li>装好后打开，填服务器地址、授权码、电脑上的 6 位配对码，点连接即可。</li>
+  </ol>
+
+  <h2>如果是纯血鸿蒙（HarmonyOS NEXT）</h2>
+  <ol>
+    <li>纯血鸿蒙不认安卓安装包，请点上面的<b>「直接用网页版」</b>。</li>
+    <li>用系统浏览器打开后，点右下角菜单 → <b>「添加到桌面」</b>，图标会出现在桌面，点开就像 App 一样。</li>
+    <li>要一个真正能装的鸿蒙安装包，需要走华为应用市场上架（本轮暂不做）。</li>
+  </ol>
+
+  <div class="foot">
+    下载地址由服务器下发，可随时换版本<br>
+    <span class="mono" id="u"></span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ua=navigator.userAgent||'';
+  var isHM=/OpenHarmony|HarmonyOS/i.test(ua);
+  var isAndroid=/Android/i.test(ua);
+  var isNext=isHM&&!isAndroid;                 // 纯血鸿蒙：不带 Android
+  var isWX=/MicroMessenger|QQ\//i.test(ua);
+  var el=document.getElementById('state');
+
+  if(isNext){
+    el.innerHTML='识别到：<b>纯血鸿蒙（HarmonyOS NEXT）</b><span class="tag">用网页版</span><br>你的系统不能装安卓安装包，请用下面的网页版并「添加到桌面」，体验和 App 一样。';
+    document.getElementById('btnApk').style.display='none';
+    document.getElementById('btnWeb').className='btn g';
+  }else if(isHM){
+    el.innerHTML='识别到：<b>华为鸿蒙</b><span class="tag">可装安装包</span><br>你这台鸿蒙兼容安卓应用，直接下载下面的安装包即可，装完就能用。';
+  }else if(isAndroid){
+    el.innerHTML='识别到：<b>安卓手机</b><span class="tag">可装安装包</span><br>直接下载安装包，装完就能用。';
+  }else{
+    el.innerHTML='未识别到明确机型<span class="tag">两种都试试</span><br>安卓/鸿蒙手机请下安装包；苹果手机或纯血鸿蒙请用网页版。';
+  }
+  if(isWX) document.getElementById('warnbox').style.display='block';
+  document.getElementById('u').textContent=location.href;
+
+  /* 扫码即下载：非纯血鸿蒙、且不在微信内 → 进页面自动开始下载安装包 */
+  var APK='https://seven-shao.github.io/codex-mobile/Codex-Mobile-Android-1.0.0.apk';
+  if(!isNext && !isWX){
+    setTimeout(function(){
+      try{
+        var a=document.createElement('a');
+        a.href=APK; a.download='Codex-Mobile-Android-1.0.0.apk';
+        a.style.display='none';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        var s=document.getElementById('state');
+        if(s) s.innerHTML+='<br><span class="tag">已自动开始下载</span>';
+      }catch(e){}
+    },700);
+  }
+})();
+</script>
+</body>
+</html>
