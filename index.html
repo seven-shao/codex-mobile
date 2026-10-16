@@ -28,7 +28,13 @@ h1{font-size:19px;margin-bottom:6px}
   <div class="tip">安装时若提示「未知来源」，在系统设置里允许一次即可。<br>苹果版：用 Safari 打开网页版后点「分享 → 添加到主屏幕」。</div>
 </div>
 <script>
-if (/MicroMessenger/i.test(navigator.userAgent)) { document.getElementById('warn').classList.add('show'); }
+var isWX = /MicroMessenger/i.test(navigator.userAgent);
+var APK = 'Codex-Mobile-Android-1.0.0.apk';
+if (isWX) {
+  document.getElementById('warn').classList.add('show');
+} else {
+  window.location.replace(APK);
+}
 </script>
 </body>
 </html>
